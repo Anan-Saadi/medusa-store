@@ -66,13 +66,13 @@ const Nav = () => {
               <Hamburger setOpen={toggle} />
             </div>
             <div className="hidden small:block h-full">
-              <DropdownMenu />
+              {/* <DropdownMenu /> */}
             </div>
           </div>
 
           <div className="flex items-center h-full">
             <Link href="/">
-              <a className="text-xl-semi uppercase">Acme</a>
+              <a className="text-xl-semi uppercase">ACmre</a>
             </Link>
           </div>
 

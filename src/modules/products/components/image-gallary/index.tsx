@@ -1,11 +1,14 @@
 import { Image as MedusaImage } from "@medusajs/medusa"
 import Image from "next/image"
 import { useRef } from "react"
+import { Carousel } from '@mantine/carousel';
+import { Container } from "@mantine/core";
+
 
 type ImageGalleryProps = {
   images: MedusaImage[]
 }
-
+const Ratio = 1.15;
 const ImageGallery = ({ images }: ImageGalleryProps) => {
   const imageRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -44,27 +47,35 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
           )
         })}
       </div>
-      <div className="flex flex-col flex-1 small:mx-16 gap-y-4">
-        {images.map((image, index) => {
-          return (
-            <div
-              ref={(image) => imageRefs.current.push(image)}
-              key={image.id}
-              className="relative aspect-[29/34] w-full"
-              id={image.id}
-            >
-              <Image
-                src={image.url}
-                layout="fill"
-                objectFit="cover"
-                priority={index <= 2 ? true : false}
-                className="absolute inset-0"
-                alt={`Product image ${index + 1}`}
-              />
-            </div>
-          )
-        })}
-      </div>
+      <Container fluid >
+        <Carousel slideSize="100%" align="center" height={540 * Ratio} sx={{ width: 460 * Ratio }} slideGap="md" draggable={false} withIndicators
+          styles={
+            {
+              indicator: {
+                color: '#f00',
+                opacity: 1,
+                backround: '#f00'
+              }
+
+            }
+          }
+        >
+          {images.map((image, index) => {
+            return (
+              <Carousel.Slide><Image
+              src={image.url}
+              layout="fill"
+              objectFit="cover"
+              className="absolute inset-0"
+              alt="Thumbnail"
+            /></Carousel.Slide>
+
+                
+            )
+          })}
+        </Carousel>
+      </Container>
+
     </div>
   )
 }
